@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flutter Zapp</title>
+</head>
+<body>
+    <h1>3A</h1>
+    <p>
+        import 'package:flutter/material.dart';
+
+void main() => runApp(
+    MaterialApp(
+        home: Scaffold(
+            appBar: AppBar(title: Text("Responsive UI")),
+            body: const ResponsiveLayout(),
+        )
+    )
+);
+
+class ResponsiveLayout extends StatelessWidget {
+  const ResponsiveLayout({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(
+        builder: (context, constraints) {
+            if(constraints.maxWidth > 600) {
+                return Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [ColoredBox(color: Colors.blue, child: SizedBox(width: 100, height: 100)),
+                              ColoredBox(color: Colors.blue, child: SizedBox(width: 100, height: 100))],
+                );
+            }
+            else {
+                return Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [ColoredBox(color: Colors.blue, child: SizedBox(width: 100, height: 100)),
+                              ColoredBox(color: Colors.blue, child: SizedBox(width: 100, height: 100))],
+                );
+            }
+        }
+    );
+  }
+}
+    </p>
+
+    <h1>3B</h1>
+    <p>
+        import 'package:flutter/material.dart';
+
+void main() => runApp(
+    MaterialApp(
+        home: Scaffold(
+            appBar: AppBar(title: Text("Responsiveness")),
+            body: const ResponsiveLayout(),
+        ),
+    ),
+);
+
+class ResponsiveLayout extends StatelessWidget {
+    const ResponsiveLayout({super.key});
+
+    @override
+    Widget build(BuildContext context) {
+        final double screenWidth = MediaQuery.of(context).size.width;
+        Color layoutColor = Colors.orange;
+        String layoutText = "Mobile Layout";
+
+        if(screenWidth >= 900) {
+            layoutColor = Colors.red;
+            layoutText = "Laptop Layout";
+        }
+        else if(screenWidth >= 600) {
+            layoutColor = Colors.blue;
+            layoutText = "Tablet Layout";
+        }
+
+        return Center(
+            child: Container(
+                color: layoutColor, height: 200, width: screenWidth * 0.8, alignment: Alignment.center, child: (Text(layoutText))
+            ),
+        );
+    }
+}
+    </p>
+
+    <h1>5A</h1>
+    <p>
+        import 'package:flutter/material.dart';
+
+void main() => runApp(
+    MaterialApp(
+        home: Scaffold(
+            appBar: AppBar(title: Text("Stateful Widgets & Stateless Widgets")),
+            body: const StateFul(),
+        ),
+    ),
+);
+
+class StateFul extends StatefulWidget {
+    const StateFul({super.key});
+
+    @override
+    State<StateFul> createState() => _StateFulState();
+
+}
+class _StateFulState extends State<StateFul> {
+    int _count = 0;
+
+    @override
+    Widget build(BuildContext context) {
+        return Center(
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                    const MyStateless(),
+                    Text('Count: $_count'),
+                    ElevatedButton(
+                        child: Text("Click to Update"),
+                        onPressed: () {
+                            setState(() {
+                                _count++;
+                            });
+                        },
+                    ),
+                ],
+            ),
+        );
+    }
+}
+
+class MyStateless extends StatelessWidget {
+    const MyStateless({super.key});
+
+    @override
+    Widget build(BuildContext context) {
+        return const Text(
+            "Stateless",
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+        );
+    }
+}
+    </p>
+
+    <h1>5B</h1>
+    <p>
+        import 'package:flutter/material.dart';
+
+void main() => runApp(const MyApp());
+
+class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => MyAppState();
+}
+
+class MyAppState extends State<MyApp> {
+  bool isDark = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: "Toggle App",
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        brightness: Brightness.light,
+        primarySwatch: Colors.green,
+      ),
+      darkTheme: ThemeData(
+        brightness: Brightness.dark,
+        primarySwatch: Colors.red,
+      ),
+      themeMode: isDark ? ThemeMode.dark : ThemeMode.light,
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text("Toggle App"),
+          actions: [
+            Switch(
+              value: isDark,
+              onChanged: (value) {
+                setState(() {
+                  isDark = value;
+                });
+              },
+            ),
+          ],
+        ),
+        body: const Center(
+          child: Text("Hello"),
+        ),
+      ),
+    );
+  }
+}
+    </p>
+</body>
+</html>
